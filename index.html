@@ -14,10 +14,11 @@
     <div class="logo">BG <span>PLAYER</span></div>
     <nav>
       <a href="#home">Główna</a>
+      <a href="#categories">Gry</a>
       <a href="#discord">Discord</a>
       <a href="#stats">Licznik</a>
-      <a href="#popular">Najpopularniejsze</a>
-      <a href="#videos">Wszystkie Filmy</a>
+      <a href="#popular">Hity</a>
+      <a href="#videos">Filmy</a>
     </nav>
   </header>
 
@@ -25,7 +26,7 @@
   <section class="hero" id="home">
     <div class="hero-content">
       <h1>Witaj w świecie BG Player!</h1>
-      <p>Gramy w Roblox Doors, pozycje w klimacie Władcy Pierścieni i wiele więcej. Dołącz do naszej społeczności!</p>
+      <p>Ekstremalne przejścia Roblox Doors, epickie bitwy w klimacie Władcy Pierścieni i świetna zabawa. Dołącz do nas!</p>
       <div class="hero-buttons">
         <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="btn-yt">
           <i class="fab fa-youtube"></i> Subskrybuj Kanał
@@ -33,6 +34,28 @@
         <a href="https://dsc.gg/bgplayers" target="_blank" class="btn-discord-hero">
           <i class="fab fa-discord"></i> Dołącz do Discorda
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOWOŚĆ: Kategorie Gier / Serii na Kanale -->
+  <section class="categories-section" id="categories">
+    <h2><i class="fas fa-gamepad" style="color:#00f0ff;"></i> Główne Kategorie Na Kanale</h2>
+    <div class="categories-grid">
+      <div class="category-card roblox-cat">
+        <i class="fas fa-door-open category-icon"></i>
+        <h3>Roblox Doors</h3>
+        <p>Przejścia, unikanie potworów, triki i emocjonujące chwile z horroru w Roblox!</p>
+      </div>
+      <div class="category-card lotr-cat">
+        <i class="fas fa-shield-alt category-icon"></i>
+        <h3>Władca Pierścieni</h3>
+        <p>Epickie strategie, bitwy i kampanie w kultowym uniwersum Śródziemia.</p>
+      </div>
+      <div class="category-card other-cat">
+        <i class="fas fa-dice category-icon"></i>
+        <h3>Inne Produkcje</h3>
+        <p>Różnorodne gry, wyzwania, testy i najlepsze momenty z rozgrywek.</p>
       </div>
     </div>
   </section>
@@ -50,7 +73,7 @@
     </div>
   </section>
 
-  <!-- Licznik Statystyk na Żywo -->
+  <!-- Licznik Statystyk z timerem 5 sekund -->
   <section class="stats-container" id="stats">
     <div class="stat-card">
       <i class="fas fa-users stat-icon"></i>
@@ -67,17 +90,22 @@
       <h3 id="video-count">--</h3>
       <p>Opublikowanych Filmów</p>
     </div>
-  </section>
-
-  <!-- Najpopularniejsze Filmy (Lajki i Wyświetlenia) -->
-  <section class="videos-section" id="popular">
-    <h2><i class="fas fa-fire" style="color:#ff0055;"></i> Najpopularniejsze Hity</h2>
-    <div class="video-grid" id="popular-video-grid">
-      <p class="loading-text">Ładowanie hity z kanału...</p>
+    <div class="stat-card timer-card">
+      <i class="fas fa-sync-alt stat-icon"></i>
+      <h3 id="timer-count">5</h3>
+      <p>Odświeżenie za (s)</p>
     </div>
   </section>
 
-  <!-- Wszystkie Filmy (Od Najnowszych do Najstarszych z rozwinięciem) -->
+  <!-- Najpopularniejsze Filmy -->
+  <section class="videos-section" id="popular">
+    <h2><i class="fas fa-fire" style="color:#ff0055;"></i> Najpopularniejsze Hity</h2>
+    <div class="video-grid" id="popular-video-grid">
+      <p class="loading-text">Ładowanie hitów z kanału...</p>
+    </div>
+  </section>
+
+  <!-- Wszystkie Filmy -->
   <section class="videos-section" id="videos">
     <h2><i class="fas fa-film" style="color:#00f0ff;"></i> Najnowsze Filmy</h2>
     <div class="video-grid" id="video-grid">
@@ -85,6 +113,14 @@
     </div>
     <div class="load-more-container">
       <button id="load-more-btn" class="btn-load-more">Rozwiń więcej filmów (W dół) <i class="fas fa-chevron-down"></i></button>
+    </div>
+  </section>
+
+  <!-- NOWOŚĆ: Sekcja O Mnie / O Kanale -->
+  <section class="about-section">
+    <div class="about-card">
+      <h2>O BG Player</h2>
+      <p>Cześć! Jestem twórcą kanału <strong>BG Player</strong> (@BestGamePlayer-777). Jeśli uwielbiasz napięcie w Roblox Doors, strategię i klimat Władcy Pierścieni oraz świetną atmosferę – to miejsce jest dla Ciebie. Zostaw subskrypcję i wbijaj na Discorda!</p>
     </div>
   </section>
 
@@ -99,8 +135,8 @@
 
     let nextPageToken = '';
     let isFirstLoad = true;
+    let countdown = 5;
 
-    // Pobierz Podstawowe Statystyki Kanału
     async function fetchChannelStats() {
       try {
         const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
@@ -118,7 +154,17 @@
       }
     }
 
-    // Pobierz Najpopularniejsze Filmy (po wyświetleniach)
+    function startAutoRefreshTimer() {
+      setInterval(() => {
+        countdown--;
+        if (countdown <= 0) {
+          countdown = 5;
+          fetchChannelStats();
+        }
+        document.getElementById('timer-count').innerText = countdown;
+      }, 1000);
+    }
+
     async function fetchPopularVideos() {
       try {
         const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=3&type=video`;
@@ -131,7 +177,6 @@
         if (dataSearch.items && dataSearch.items.length > 0) {
           const videoIds = dataSearch.items.map(item => item.id.videoId).join(',');
           
-          // Pobierz szczegóły filmów (lajki i wyświetlenia)
           const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
           const resDetails = await fetch(detailsUrl);
           const dataDetails = await resDetails.json();
@@ -167,7 +212,6 @@
       }
     }
 
-    // Pobierz Najnowsze Filmy z funkcją rozwijania w dół
     async function fetchRecentVideos() {
       try {
         let searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=5&type=video`;
@@ -181,7 +225,7 @@
         nextPageToken = dataSearch.nextPageToken || '';
         const btn = document.getElementById('load-more-btn');
         if (!nextPageToken) {
-          btn.style.display = 'none'; // Brak kolejnych filmów (dotarliśmy do najstarszych)
+          btn.style.display = 'none';
         }
 
         const grid = document.getElementById('video-grid');
@@ -229,13 +273,12 @@
       }
     }
 
-    // Przycisk "Załaduj Więcej"
     document.getElementById('load-more-btn').addEventListener('click', () => {
       fetchRecentVideos();
     });
 
-    // Inicjalizacja
     fetchChannelStats();
+    startAutoRefreshTimer();
     fetchPopularVideos();
     fetchRecentVideos();
   </script>
