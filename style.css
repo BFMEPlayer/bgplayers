@@ -108,6 +108,80 @@ nav a:hover {
   box-shadow: 0 0 25px rgba(88, 101, 242, 0.9);
 }
 
+/* SEKCJA KATEGORII GIER */
+.categories-section {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.categories-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  border-left: 4px solid #00f0ff;
+  padding-left: 1rem;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.category-card {
+  background: #161b2e;
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+}
+
+.roblox-cat:hover {
+  border-color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+.lotr-cat:hover {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.other-cat:hover {
+  border-color: #ff0055;
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+}
+
+.category-icon {
+  font-size: 3rem;
+  color: #00f0ff;
+  margin-bottom: 1rem;
+}
+
+.lotr-cat .category-icon {
+  color: #ffd700;
+}
+
+.other-cat .category-icon {
+  color: #ff0055;
+}
+
+.category-card h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+}
+
+.category-card p {
+  color: #a0aec0;
+  font-size: 0.95rem;
+}
+
 /* SEKCJA DISCORD BANNER */
 .discord-banner-section {
   max-width: 1000px;
@@ -171,14 +245,14 @@ nav a:hover {
   background-color: #4752c4;
 }
 
-/* STATYSTYKI */
+/* STATYSTYKI Z TIMEREM */
 .stats-container {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   padding: 2rem;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -186,11 +260,20 @@ nav a:hover {
   background: #161b2e;
   border: 1px solid rgba(0, 240, 255, 0.3);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1.8rem;
   text-align: center;
   flex: 1;
-  min-width: 220px;
+  min-width: 200px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.timer-card {
+  border-color: rgba(255, 0, 85, 0.5);
+}
+
+.timer-card h3 {
+  color: #ff0055;
+  text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
 }
 
 .stat-icon {
@@ -199,15 +282,19 @@ nav a:hover {
   margin-bottom: 0.5rem;
 }
 
+.timer-card .stat-icon {
+  color: #ff0055;
+}
+
 .stat-card h3 {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   color: #fff;
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
 }
 
 .stat-card p {
   color: #a0aec0;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   font-weight: 600;
   margin-top: 0.3rem;
@@ -344,6 +431,32 @@ nav a:hover {
   color: #a0aec0;
   grid-column: 1 / -1;
   font-size: 1.2rem;
+}
+
+/* SEKCJA O MNIE */
+.about-section {
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.about-card {
+  background: #161b2e;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.about-card h2 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.about-card p {
+  color: #a0aec0;
+  font-size: 1.1rem;
 }
 
 footer {
