@@ -3,109 +3,241 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BG Player | Oficjalna Strona</title>
+  <title>BG Player | Oficjalne Centrum Gamingowe</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Nagłówek -->
+  <!-- Nawigacja -->
   <header>
     <div class="logo">BG <span>PLAYER</span></div>
     <nav>
-      <a href="#home">Strona Główna</a>
-      <a href="#stats">Statystyki</a>
-      <a href="#videos">Najnowsze Filmy</a>
+      <a href="#home">Główna</a>
+      <a href="#discord">Discord</a>
+      <a href="#stats">Licznik</a>
+      <a href="#popular">Najpopularniejsze</a>
+      <a href="#videos">Wszystkie Filmy</a>
     </nav>
   </header>
 
-  <!-- Sekcja Banerowa -->
+  <!-- Sekcja Banerowa (Hero) -->
   <section class="hero" id="home">
-    <h1>Witaj w świecie BG Player</h1>
-    <p>Gra w Roblox Doors, gry z serii Władca Pierścieni i wiele więcej. Zobacz najnowsze materiały bezpośrednio z kanału!</p>
-    <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="btn-yt">Subskrybuj na YouTube</a>
+    <div class="hero-content">
+      <h1>Witaj w świecie BG Player!</h1>
+      <p>Gramy w Roblox Doors, pozycje w klimacie Władcy Pierścieni i wiele więcej. Dołącz do naszej społeczności!</p>
+      <div class="hero-buttons">
+        <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="btn-yt">
+          <i class="fab fa-youtube"></i> Subskrybuj Kanał
+        </a>
+        <a href="https://dsc.gg/bgplayers" target="_blank" class="btn-discord-hero">
+          <i class="fab fa-discord"></i> Dołącz do Discorda
+        </a>
+      </div>
+    </div>
   </section>
 
-  <!-- Statystyki na żywo z YouTube -->
+  <!-- WIELKA SEKCJA DISCORD -->
+  <section class="discord-banner-section" id="discord">
+    <div class="discord-card">
+      <div class="discord-icon"><i class="fab fa-discord"></i></div>
+      <h2>OFICJALNY SERWER DISCORD</h2>
+      <p class="discord-link-text">dsc.gg/bgplayers</p>
+      <p>Graj z nami, gadaj na głosowym i dowiaduj się o nowych filmach jako pierwszy!</p>
+      <a href="https://dsc.gg/bgplayers" target="_blank" class="btn-discord-main">
+        WEJDŹ NA SERWER <i class="fas fa-external-link-alt"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Licznik Statystyk na Żywo -->
   <section class="stats-container" id="stats">
     <div class="stat-card">
+      <i class="fas fa-users stat-icon"></i>
       <h3 id="sub-count">--</h3>
       <p>Subskrybentów</p>
     </div>
     <div class="stat-card">
-      <h3 id="video-count">--</h3>
-      <p>Przesłanych filmów</p>
+      <i class="fas fa-eye stat-icon"></i>
+      <h3 id="view-count">--</h3>
+      <p>Wyświetleń Łącznie</p>
     </div>
     <div class="stat-card">
-      <h3 id="view-count">--</h3>
-      <p>Wyświetleń łącznie</p>
+      <i class="fas fa-video stat-icon"></i>
+      <h3 id="video-count">--</h3>
+      <p>Opublikowanych Filmów</p>
     </div>
   </section>
 
-  <!-- Galeria najnowszych filmów -->
+  <!-- Najpopularniejsze Filmy (Lajki i Wyświetlenia) -->
+  <section class="videos-section" id="popular">
+    <h2><i class="fas fa-fire" style="color:#ff0055;"></i> Najpopularniejsze Hity</h2>
+    <div class="video-grid" id="popular-video-grid">
+      <p class="loading-text">Ładowanie hity z kanału...</p>
+    </div>
+  </section>
+
+  <!-- Wszystkie Filmy (Od Najnowszych do Najstarszych z rozwinięciem) -->
   <section class="videos-section" id="videos">
-    <h2>Najnowsze Filmy</h2>
+    <h2><i class="fas fa-film" style="color:#00f0ff;"></i> Najnowsze Filmy</h2>
     <div class="video-grid" id="video-grid">
-      <p style="text-align: center; color: #a0aec0; grid-column: 1 / -1;">Ładowanie najnowszych filmów z YouTube...</p>
+      <p class="loading-text">Ładowanie filmów...</p>
+    </div>
+    <div class="load-more-container">
+      <button id="load-more-btn" class="btn-load-more">Rozwiń więcej filmów (W dół) <i class="fas fa-chevron-down"></i></button>
     </div>
   </section>
 
+  <!-- Stopka -->
   <footer>
-    <p>&copy; 2026 BG Player (@BestGamePlayer-777). Wszelkie prawa zastrzeżone.</p>
+    <p>&copy; 2026 BG Player (@BestGamePlayer-777). Wszystkie prawa zastrzeżone.</p>
   </footer>
 
   <script>
     const API_KEY = 'AIzaSyD7sKj1mxjk9MVOcDFVIU8N3A4rx4iiPi0';
     const CHANNEL_ID = 'UC_GRPARPGY7VetsQNhg3dBg';
 
-    async function fetchYouTubeStats() {
+    let nextPageToken = '';
+    let isFirstLoad = true;
+
+    // Pobierz Podstawowe Statystyki Kanału
+    async function fetchChannelStats() {
       try {
-        // Pobieranie statystyk kanału
-        const statsUrl = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
-        const resStats = await fetch(statsUrl);
-        const dataStats = await resStats.json();
+        const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+        const res = await fetch(url);
+        const data = await res.json();
 
-        if (dataStats.items && dataStats.items.length > 0) {
-          const stats = dataStats.items[0].statistics;
+        if (data.items && data.items.length > 0) {
+          const stats = data.items[0].statistics;
           document.getElementById('sub-count').innerText = Number(stats.subscriberCount).toLocaleString('pl-PL');
-          document.getElementById('video-count').innerText = Number(stats.videoCount).toLocaleString('pl-PL');
           document.getElementById('view-count').innerText = Number(stats.viewCount).toLocaleString('pl-PL');
-        }
-
-        // Pobieranie 3 najnowszych filmów
-        const videosUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3`;
-        const resVideos = await fetch(videosUrl);
-        const dataVideos = await resVideos.json();
-
-        const videoGrid = document.getElementById('video-grid');
-        videoGrid.innerHTML = '';
-
-        if (dataVideos.items && dataVideos.items.length > 0) {
-          dataVideos.items.forEach(item => {
-            if (item.id.kind === 'youtube#video') {
-              const videoId = item.id.videoId;
-              const title = item.snippet.title;
-              const thumb = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.medium.url;
-
-              const card = document.createElement('div');
-              card.className = 'video-card';
-              card.innerHTML = `
-                <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" style="text-decoration:none;">
-                  <img src="${thumb}" alt="${title}" style="width:100%; height:180px; object-fit:cover;">
-                  <div class="video-info">
-                    <div class="video-title">${title}</div>
-                  </div>
-                </a>
-              `;
-              videoGrid.appendChild(card);
-            }
-          });
+          document.getElementById('video-count').innerText = Number(stats.videoCount).toLocaleString('pl-PL');
         }
       } catch (err) {
-        console.error('Błąd pobierania danych z YouTube API:', err);
+        console.error('Błąd pobierania statystyk:', err);
       }
     }
 
-    fetchYouTubeStats();
+    // Pobierz Najpopularniejsze Filmy (po wyświetleniach)
+    async function fetchPopularVideos() {
+      try {
+        const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=3&type=video`;
+        const resSearch = await fetch(searchUrl);
+        const dataSearch = await resSearch.json();
+
+        const grid = document.getElementById('popular-video-grid');
+        grid.innerHTML = '';
+
+        if (dataSearch.items && dataSearch.items.length > 0) {
+          const videoIds = dataSearch.items.map(item => item.id.videoId).join(',');
+          
+          // Pobierz szczegóły filmów (lajki i wyświetlenia)
+          const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
+          const resDetails = await fetch(detailsUrl);
+          const dataDetails = await resDetails.json();
+
+          dataDetails.items.forEach(video => {
+            const title = video.snippet.title;
+            const thumb = video.snippet.thumbnails.high ? video.snippet.thumbnails.high.url : video.snippet.thumbnails.medium.url;
+            const views = Number(video.statistics.viewCount || 0).toLocaleString('pl-PL');
+            const likes = Number(video.statistics.likeCount || 0).toLocaleString('pl-PL');
+
+            const card = document.createElement('div');
+            card.className = 'video-card popular-card';
+            card.innerHTML = `
+              <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" class="video-link">
+                <div class="thumb-wrapper">
+                  <img src="${thumb}" alt="${title}">
+                  <span class="badge-popular"><i class="fas fa-fire"></i> TOP</span>
+                </div>
+                <div class="video-info">
+                  <div class="video-title">${title}</div>
+                  <div class="video-stats-row">
+                    <span><i class="fas fa-eye"></i> ${views}</span>
+                    <span><i class="fas fa-thumbs-up"></i> ${likes}</span>
+                  </div>
+                </div>
+              </a>
+            `;
+            grid.appendChild(card);
+          });
+        }
+      } catch (err) {
+        console.error('Błąd pobierania popularnych filmów:', err);
+      }
+    }
+
+    // Pobierz Najnowsze Filmy z funkcją rozwijania w dół
+    async function fetchRecentVideos() {
+      try {
+        let searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=5&type=video`;
+        if (nextPageToken) {
+          searchUrl += `&pageToken=${nextPageToken}`;
+        }
+
+        const resSearch = await fetch(searchUrl);
+        const dataSearch = await resSearch.json();
+
+        nextPageToken = dataSearch.nextPageToken || '';
+        const btn = document.getElementById('load-more-btn');
+        if (!nextPageToken) {
+          btn.style.display = 'none'; // Brak kolejnych filmów (dotarliśmy do najstarszych)
+        }
+
+        const grid = document.getElementById('video-grid');
+        if (isFirstLoad) {
+          grid.innerHTML = '';
+          isFirstLoad = false;
+        }
+
+        if (dataSearch.items && dataSearch.items.length > 0) {
+          const videoIds = dataSearch.items.map(item => item.id.videoId).join(',');
+
+          const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
+          const resDetails = await fetch(detailsUrl);
+          const dataDetails = await resDetails.json();
+
+          dataDetails.items.forEach(video => {
+            const title = video.snippet.title;
+            const thumb = video.snippet.thumbnails.high ? video.snippet.thumbnails.high.url : video.snippet.thumbnails.medium.url;
+            const views = Number(video.statistics.viewCount || 0).toLocaleString('pl-PL');
+            const likes = Number(video.statistics.likeCount || 0).toLocaleString('pl-PL');
+            const date = new Date(video.snippet.publishedAt).toLocaleDateString('pl-PL');
+
+            const card = document.createElement('div');
+            card.className = 'video-card';
+            card.innerHTML = `
+              <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" class="video-link">
+                <div class="thumb-wrapper">
+                  <img src="${thumb}" alt="${title}">
+                </div>
+                <div class="video-info">
+                  <div class="video-title">${title}</div>
+                  <div class="video-date"><i class="far fa-calendar-alt"></i> ${date}</div>
+                  <div class="video-stats-row">
+                    <span><i class="fas fa-eye"></i> ${views}</span>
+                    <span><i class="fas fa-thumbs-up"></i> ${likes}</span>
+                  </div>
+                </div>
+              </a>
+            `;
+            grid.appendChild(card);
+          });
+        }
+      } catch (err) {
+        console.error('Błąd pobierania filmów:', err);
+      }
+    }
+
+    // Przycisk "Załaduj Więcej"
+    document.getElementById('load-more-btn').addEventListener('click', () => {
+      fetchRecentVideos();
+    });
+
+    // Inicjalizacja
+    fetchChannelStats();
+    fetchPopularVideos();
+    fetchRecentVideos();
   </script>
 </body>
 </html>
