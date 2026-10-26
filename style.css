@@ -108,76 +108,161 @@ nav a:hover {
   box-shadow: 0 0 25px rgba(88, 101, 242, 0.9);
 }
 
-/* SEKCJA KATEGORII GIER */
-.categories-section {
+/* SEKCJA GRY I KATEGORIE */
+.games-section {
   max-width: 1200px;
   margin: 4rem auto;
   padding: 0 2rem;
 }
 
-.categories-section h2 {
+.games-section h2 {
   font-size: 2.2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   color: #fff;
   border-left: 4px solid #00f0ff;
   padding-left: 1rem;
 }
 
-.categories-grid {
+.section-subtitle {
+  color: #a0aec0;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+}
+
+.games-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.category-card {
+.game-card {
   background: #161b2e;
   border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  border-color: #00f0ff;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+}
+
+.game-icon {
+  font-size: 3rem;
+  color: #00f0ff;
+  margin-bottom: 1rem;
+}
+
+.game-card h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+}
+
+.game-card p {
+  color: #a0aec0;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.game-link {
+  display: inline-block;
+  color: #ff0055;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
+}
+
+.game-link:hover {
+  color: #fff;
+}
+
+.filter-badge {
+  display: block;
+  font-size: 0.8rem;
+  color: #718096;
+  border-top: 1px solid #2d3748;
+  padding-top: 0.8rem;
+}
+
+.filter-banner {
+  background: #161b2e;
+  border: 2px solid #00f0ff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.btn-reset-filter {
+  background: #00f0ff;
+  color: #0d0f17;
+  border: none;
+  padding: 0.4rem 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+/* SEKCJA MUZYKI */
+.music-section {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.music-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  border-left: 4px solid #ff0055;
+  padding-left: 1rem;
+}
+
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.music-card {
+  background: #161b2e;
+  border: 1px solid rgba(255, 0, 85, 0.3);
   border-radius: 12px;
   padding: 2.5rem 2rem;
   text-align: center;
   transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
-.category-card:hover {
+.music-card:hover {
   transform: translateY(-5px);
-}
-
-.roblox-cat:hover {
-  border-color: #00f0ff;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-}
-
-.lotr-cat:hover {
-  border-color: #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-}
-
-.other-cat:hover {
   border-color: #ff0055;
-  box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+  box-shadow: 0 0 25px rgba(255, 0, 85, 0.3);
 }
 
-.category-icon {
+.music-icon {
   font-size: 3rem;
-  color: #00f0ff;
-  margin-bottom: 1rem;
-}
-
-.lotr-cat .category-icon {
-  color: #ffd700;
-}
-
-.other-cat .category-icon {
   color: #ff0055;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
 }
 
-.category-card h3 {
-  font-size: 1.5rem;
+.music-card h3 {
+  font-size: 1.6rem;
   color: #fff;
   margin-bottom: 0.8rem;
 }
 
-.category-card p {
+.music-card p {
   color: #a0aec0;
   font-size: 0.95rem;
 }
