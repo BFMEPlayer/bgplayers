@@ -14,7 +14,8 @@
     <div class="logo">BG <span>PLAYER</span></div>
     <nav>
       <a href="#home">Główna</a>
-      <a href="#categories">Gry</a>
+      <a href="#games">Gry i Kategorie</a>
+      <a href="#music">Muzyka</a>
       <a href="#discord">Discord</a>
       <a href="#stats">Licznik</a>
       <a href="#popular">Hity</a>
@@ -38,24 +39,65 @@
     </div>
   </section>
 
-  <!-- NOWOŚĆ: Kategorie Gier / Serii na Kanale -->
-  <section class="categories-section" id="categories">
-    <h2><i class="fas fa-gamepad" style="color:#00f0ff;"></i> Główne Kategorie Na Kanale</h2>
-    <div class="categories-grid">
-      <div class="category-card roblox-cat">
-        <i class="fas fa-door-open category-icon"></i>
+  <!-- SEKCJA GRY I KATEGORIE -->
+  <section class="games-section" id="games">
+    <h2><i class="fas fa-gamepad" style="color:#00f0ff;"></i> Kategorie i Gry na Kanale</h2>
+    <p class="section-subtitle">Wybierz grę, sprawdź opis i przejdź do dedykowanych materiałów:</p>
+    
+    <div class="games-grid">
+      <!-- Kategoria 1: Roblox Doors -->
+      <div class="game-card" onclick="filterVideos('Roblox Doors')">
+        <div class="game-icon"><i class="fas fa-door-open"></i></div>
         <h3>Roblox Doors</h3>
-        <p>Przejścia, unikanie potworów, triki i emocjonujące chwile z horroru w Roblox!</p>
+        <p>Ekstremalny horror, unikanie potworów, przetrwanie kolejnych pokoi i triki na przejście bez strat.</p>
+        <a href="https://www.roblox.com" target="_blank" class="game-link" onclick="event.stopPropagation()">Zagraj w grę <i class="fas fa-external-link-alt"></i></a>
+        <span class="filter-badge">Kliknij, aby filtrować filmy</span>
       </div>
-      <div class="category-card lotr-cat">
-        <i class="fas fa-shield-alt category-icon"></i>
+
+      <!-- Kategoria 2: Władca Pierścieni -->
+      <div class="game-card" onclick="filterVideos('Władca Pierścieni')">
+        <div class="game-icon"><i class="fas fa-shield-alt"></i></div>
         <h3>Władca Pierścieni</h3>
-        <p>Epickie strategie, bitwy i kampanie w kultowym uniwersum Śródziemia.</p>
+        <p>Epickie bitwy, kampanie i strategie w uniwersum Śródziemia. Walka o losy królestw!</p>
+        <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="game-link" onclick="event.stopPropagation()">Odwiedź kanał <i class="fas fa-external-link-alt"></i></a>
+        <span class="filter-badge">Kliknij, aby filtrować filmy</span>
       </div>
-      <div class="category-card other-cat">
-        <i class="fas fa-dice category-icon"></i>
+
+      <!-- Kategoria 3: Inne Produkcje -->
+      <div class="game-card" onclick="filterVideos('Inne')">
+        <div class="game-icon"><i class="fas fa-dice"></i></div>
         <h3>Inne Produkcje</h3>
-        <p>Różnorodne gry, wyzwania, testy i najlepsze momenty z rozgrywek.</p>
+        <p>Różnorodne gry, wyzwania, testy nowości i najlepsze momenty z rozgrywek.</p>
+        <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="game-link" onclick="event.stopPropagation()">Sprawdź <i class="fas fa-external-link-alt"></i></a>
+        <span class="filter-badge">Kliknij, aby filtrować filmy</span>
+      </div>
+    </div>
+    
+    <div id="active-filter-banner" class="filter-banner" style="display:none;">
+      Aktywny filtr kategorii: <span id="current-filter-name">Wszystkie</span> 
+      <button onclick="resetFilter()" class="btn-reset-filter">Pokaż wszystkie</button>
+    </div>
+  </section>
+
+  <!-- SEKCJA MUZYKA Z FILMÓW -->
+  <section class="music-section" id="music">
+    <h2><i class="fas fa-music" style="color:#ff0055;"></i> Ścieżka Dźwiękowa / Muzyka z Filmów</h2>
+    <p class="section-subtitle">Kultowe kawałki, które podkręcają atmosferę w materiałach na kanale:</p>
+    <div class="music-grid">
+      <div class="music-card">
+        <i class="fas fa-headphones-alt music-icon"></i>
+        <h3>Rave</h3>
+        <p>Energetyczny bit idealny do dynamicznych akcji i pościgów w grach.</p>
+      </div>
+      <div class="music-card">
+        <i class="fas fa-bolt music-icon"></i>
+        <h3>Why Not</h3>
+        <p>Kultowy utwór towarzyszący najlepszym momentom, montażom i wyzwaniom.</p>
+      </div>
+      <div class="music-card">
+        <i class="fas fa-fire-alt music-icon"></i>
+        <h3>GigaChad Theme</h3>
+        <p>Muzyka czystego sukcesu, epickich zagrywek i momentów triumfu.</p>
       </div>
     </div>
   </section>
@@ -105,9 +147,9 @@
     </div>
   </section>
 
-  <!-- Wszystkie Filmy -->
+  <!-- Wszystkie Filmy (Pod Kategoriami) -->
   <section class="videos-section" id="videos">
-    <h2><i class="fas fa-film" style="color:#00f0ff;"></i> Najnowsze Filmy</h2>
+    <h2><i class="fas fa-film" style="color:#00f0ff;"></i> Filmy z Kanału</h2>
     <div class="video-grid" id="video-grid">
       <p class="loading-text">Ładowanie filmów...</p>
     </div>
@@ -116,7 +158,7 @@
     </div>
   </section>
 
-  <!-- NOWOŚĆ: Sekcja O Mnie / O Kanale -->
+  <!-- Sekcja O Mnie -->
   <section class="about-section">
     <div class="about-card">
       <h2>O BG Player</h2>
@@ -133,10 +175,12 @@
     const API_KEY = 'AIzaSyD7sKj1mxjk9MVOcDFVIU8N3A4rx4iiPi0';
     const CHANNEL_ID = 'UC_GRPARPGY7VetsQNhg3dBg';
 
-    let nextPageToken = '';
-    let isFirstLoad = true;
+    let allVideosData = [];
+    let displayedCount = 6;
+    let currentFilter = 'All';
     let countdown = 5;
 
+    // Pobierz statystyki kanału
     async function fetchChannelStats() {
       try {
         const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
@@ -154,6 +198,7 @@
       }
     }
 
+    // Timer odświeżania co 5 sekund
     function startAutoRefreshTimer() {
       setInterval(() => {
         countdown--;
@@ -165,6 +210,7 @@
       }, 1000);
     }
 
+    // Pobierz najpopularniejsze filmy
     async function fetchPopularVideos() {
       try {
         const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=3&type=video`;
@@ -176,7 +222,6 @@
 
         if (dataSearch.items && dataSearch.items.length > 0) {
           const videoIds = dataSearch.items.map(item => item.id.videoId).join(',');
-          
           const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
           const resDetails = await fetch(detailsUrl);
           const dataDetails = await resDetails.json();
@@ -208,79 +253,117 @@
           });
         }
       } catch (err) {
-        console.error('Błąd pobierania popularnych filmów:', err);
+        console.error('Błąd pobierania hitorycznych filmów:', err);
       }
     }
 
-    async function fetchRecentVideos() {
+    // Pobierz wszystkie filmy do archiwum z możliwością filtrowania i rozwijania
+    async function fetchAllVideos() {
       try {
-        let searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=5&type=video`;
-        if (nextPageToken) {
-          searchUrl += `&pageToken=${nextPageToken}`;
-        }
-
+        const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=30&type=video`;
         const resSearch = await fetch(searchUrl);
         const dataSearch = await resSearch.json();
 
-        nextPageToken = dataSearch.nextPageToken || '';
-        const btn = document.getElementById('load-more-btn');
-        if (!nextPageToken) {
-          btn.style.display = 'none';
-        }
-
-        const grid = document.getElementById('video-grid');
-        if (isFirstLoad) {
-          grid.innerHTML = '';
-          isFirstLoad = false;
-        }
-
         if (dataSearch.items && dataSearch.items.length > 0) {
           const videoIds = dataSearch.items.map(item => item.id.videoId).join(',');
-
           const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
           const resDetails = await fetch(detailsUrl);
           const dataDetails = await resDetails.json();
 
-          dataDetails.items.forEach(video => {
-            const title = video.snippet.title;
-            const thumb = video.snippet.thumbnails.high ? video.snippet.thumbnails.high.url : video.snippet.thumbnails.medium.url;
-            const views = Number(video.statistics.viewCount || 0).toLocaleString('pl-PL');
-            const likes = Number(video.statistics.likeCount || 0).toLocaleString('pl-PL');
-            const date = new Date(video.snippet.publishedAt).toLocaleDateString('pl-PL');
-
-            const card = document.createElement('div');
-            card.className = 'video-card';
-            card.innerHTML = `
-              <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" class="video-link">
-                <div class="thumb-wrapper">
-                  <img src="${thumb}" alt="${title}">
-                </div>
-                <div class="video-info">
-                  <div class="video-title">${title}</div>
-                  <div class="video-date"><i class="far fa-calendar-alt"></i> ${date}</div>
-                  <div class="video-stats-row">
-                    <span><i class="fas fa-eye"></i> ${views}</span>
-                    <span><i class="fas fa-thumbs-up"></i> ${likes}</span>
-                  </div>
-                </div>
-              </a>
-            `;
-            grid.appendChild(card);
-          });
+          allVideosData = dataDetails.items;
+          renderVideos();
         }
       } catch (err) {
         console.error('Błąd pobierania filmów:', err);
       }
     }
 
+    // Renderowanie filmów na podstawie filtra i limitu
+    function renderVideos() {
+      const grid = document.getElementById('video-grid');
+      grid.innerHTML = '';
+
+      let filtered = allVideosData;
+      if (currentFilter !== 'All') {
+        filtered = allVideosData.filter(video => {
+          const title = video.snippet.title.toLowerCase();
+          if (currentFilter === 'Roblox Doors') return title.includes('roblox') || title.includes('doors');
+          if (currentFilter === 'Władca Pierścieni') return title.includes('władca') || title.includes('lord') || title.includes('ring') || title.includes('pierścieni');
+          if (currentFilter === 'Inne') return !title.includes('roblox') && !title.includes('doors') && !title.includes('władca') && !title.includes('lord');
+          return true;
+        });
+      }
+
+      const toDisplay = filtered.slice(0, displayedCount);
+
+      if (toDisplay.length === 0) {
+        grid.innerHTML = `<p class="loading-text">Brak filmów w tej kategorii.</p>`;
+        document.getElementById('load-more-btn').style.display = 'none';
+        return;
+      }
+
+      toDisplay.forEach(video => {
+        const title = video.snippet.title;
+        const thumb = video.snippet.thumbnails.high ? video.snippet.thumbnails.high.url : video.snippet.thumbnails.medium.url;
+        const views = Number(video.statistics.viewCount || 0).toLocaleString('pl-PL');
+        const likes = Number(video.statistics.likeCount || 0).toLocaleString('pl-PL');
+        const date = new Date(video.snippet.publishedAt).toLocaleDateString('pl-PL');
+
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.innerHTML = `
+          <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" class="video-link">
+            <div class="thumb-wrapper">
+              <img src="${thumb}" alt="${title}">
+            </div>
+            <div class="video-info">
+              <div class="video-title">${title}</div>
+              <div class="video-date"><i class="far fa-calendar-alt"></i> ${date}</div>
+              <div class="video-stats-row">
+                <span><i class="fas fa-eye"></i> ${views}</span>
+                <span><i class="fas fa-thumbs-up"></i> ${likes}</span>
+              </div>
+            </div>
+          </a>
+        `;
+        grid.appendChild(card);
+      });
+
+      const btn = document.getElementById('load-more-btn');
+      if (displayedCount >= filtered.length) {
+        btn.style.display = 'none';
+      } else {
+        btn.style.display = 'inline-block';
+      }
+    }
+
+    // Funkcje filtrowania
+    function filterVideos(category) {
+      currentFilter = category;
+      displayedCount = 6;
+      document.getElementById('active-filter-banner').style.display = 'block';
+      document.getElementById('current-filter-name').innerText = category;
+      renderVideos();
+      window.location.hash = '#videos';
+    }
+
+    function resetFilter() {
+      currentFilter = 'All';
+      displayedCount = 6;
+      document.getElementById('active-filter-banner').style.display = 'none';
+      renderVideos();
+    }
+
     document.getElementById('load-more-btn').addEventListener('click', () => {
-      fetchRecentVideos();
+      displayedCount += 6;
+      renderVideos();
     });
 
+    // Inicjalizacja
     fetchChannelStats();
     startAutoRefreshTimer();
     fetchPopularVideos();
-    fetchRecentVideos();
+    fetchAllVideos();
   </script>
 </body>
 </html>
