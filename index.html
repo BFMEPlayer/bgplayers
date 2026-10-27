@@ -9,31 +9,42 @@
 </head>
 <body>
 
-  <!-- Nawigacja -->
+  <!-- Nawigacja z Ustawieniami Języka -->
   <header>
     <div class="logo">BG <span>PLAYER</span></div>
     <nav>
-      <a href="#home">Główna</a>
-      <a href="#games">Gry i Kategorie</a>
-      <a href="#music">Muzyka</a>
+      <a href="#home" data-lang-pl="Główna" data-lang-en="Home" data-lang-de="Start" data-lang-es="Inicio">Główna</a>
+      <a href="#games" data-lang-pl="Gry i Kategorie" data-lang-en="Games & Categories" data-lang-de="Spiele & Kategorien" data-lang-es="Juegos y Categorías">Gry i Kategorie</a>
+      <a href="#music" data-lang-pl="Muzyka" data-lang-en="Music" data-lang-de="Musik" data-lang-es="Música">Muzyka</a>
       <a href="#discord">Discord</a>
-      <a href="#stats">Licznik</a>
-      <a href="#popular">Hity</a>
-      <a href="#videos">Filmy</a>
+      <a href="#stats" data-lang-pl="Licznik" data-lang-en="Counter" data-lang-de="Zähler" data-lang-es="Contador">Licznik</a>
+      <a href="#popular" data-lang-pl="Hity" data-lang-en="Hits" data-lang-de="Hits" data-lang-es="Éxitos">Hity</a>
+      <a href="#videos" data-lang-pl="Filmy" data-lang-en="Videos" data-lang-de="Videos" data-lang-es="Videos">Filmy</a>
     </nav>
+    
+    <!-- Ustawienia Języka -->
+    <div class="settings-dropdown">
+      <button class="btn-settings"><i class="fas fa-cog"></i> <span data-lang-pl="Język" data-lang-en="Language" data-lang-de="Sprache" data-lang-es="Idioma">Język</span></button>
+      <div class="settings-menu">
+        <a href="#" onclick="changeLanguage('pl')">🇵🇱 Polski</a>
+        <a href="#" onclick="changeLanguage('en')">🇬🇧 English</a>
+        <a href="#" onclick="changeLanguage('de')">🇩🇪 Deutsch</a>
+        <a href="#" onclick="changeLanguage('es')">🇪🇸 Español</a>
+      </div>
+    </div>
   </header>
 
   <!-- Sekcja Banerowa (Hero) -->
   <section class="hero" id="home">
     <div class="hero-content">
-      <h1>Witaj w świecie BG Player!</h1>
-      <p>Ekstremalne przejścia Roblox Doors, epickie bitwy w klimacie Władcy Pierścieni i świetna zabawa. Dołącz do nas!</p>
+      <h1 data-lang-pl="Witaj w świecie BG Player!" data-lang-en="Welcome to BG Player World!" data-lang-de="Willkommen in der Welt von BG Player!" data-lang-es="¡Bienvenido al mundo de BG Player!">Witaj w świecie BG Player!</h1>
+      <p data-lang-pl="Ekstremalne przejścia Roblox Doors, Blox Strike, epickie bitwy w klimacie Władcy Pierścieni i świetna zabawa. Dołącz do nas!" data-lang-en="Extreme Roblox Doors walkthroughs, Blox Strike action, epic Lord of the Rings battles, and great fun. Join us!" data-lang-de="Extreme Roblox Doors Walkthroughs, Blox Strike Action, epische Der Herr der Ringe Schlachten und viel Spaß. Schließ dich uns an!" data-lang-es="Recorridos extremos de Roblox Doors, acción en Blox Strike, batallas épicas de El Señor de los Anillos y gran diversión. ¡Únete a nosotros!">Ekstremalne przejścia Roblox Doors, Blox Strike, epickie bitwy w klimacie Władcy Pierścieni i świetna zabawa. Dołącz do nas!</p>
       <div class="hero-buttons">
         <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="btn-yt">
-          <i class="fab fa-youtube"></i> Subskrybuj Kanał
+          <i class="fab fa-youtube"></i> <span data-lang-pl="Subskrybuj Kanał" data-lang-en="Subscribe Channel" data-lang-de="Kanal Abonnieren" data-lang-es="Suscribirse al Canal">Subskrybuj Kanał</span>
         </a>
         <a href="https://dsc.gg/bgplayers" target="_blank" class="btn-discord-hero">
-          <i class="fab fa-discord"></i> Dołącz do Discorda
+          <i class="fab fa-discord"></i> <span data-lang-pl="Dołącz do Discorda" data-lang-en="Join Discord" data-lang-de="Discord Beitreten" data-lang-es="Unirse a Discord">Dołącz do Discorda</span>
         </a>
       </div>
     </div>
@@ -41,64 +52,89 @@
 
   <!-- SEKCJA GRY I KATEGORIE -->
   <section class="games-section" id="games">
-    <h2><i class="fas fa-gamepad" style="color:#00f0ff;"></i> Kategorie i Gry na Kanale</h2>
-    <p class="section-subtitle">Wybierz grę, sprawdź opis i przejdź do dedykowanych materiałów:</p>
+    <h2><i class="fas fa-gamepad" style="color:#00f0ff;"></i> <span data-lang-pl="Kategorie i Gry na Kanale" data-lang-en="Categories & Games on Channel" data-lang-de="Kategorien & Spiele auf dem Kanal" data-lang-es="Categorías y Juegos en el Canal">Kategorie i Gry na Kanale</span></h2>
+    <p class="section-subtitle" data-lang-pl="Wybierz grę, sprawdź opis i przejdź do dedykowanych materiałów lub zagraj bezpośrednio:" data-lang-en="Select a game, check the description, and watch dedicated videos or play directly:" data-lang-de="Wähle ein Spiel aus, lese die Beschreibung und spiele direkt oder schaue Videos:" data-lang-es="Selecciona un juego, consulta la descripción y juega directamente o mira videos:">Wybierz grę, sprawdź opis i przejdź do dedykowanych materiałów lub zagraj bezpośrednio:</p>
     
     <div class="games-grid">
       <!-- Kategoria 1: Roblox Doors -->
       <div class="game-card" onclick="filterVideos('Roblox Doors')">
         <div class="game-icon"><i class="fas fa-door-open"></i></div>
         <h3>Roblox Doors</h3>
-        <p>Ekstremalny horror, unikanie potworów, przetrwanie kolejnych pokoi i triki na przejście bez strat.</p>
-        <a href="https://www.roblox.com" target="_blank" class="game-link" onclick="event.stopPropagation()">Zagraj w grę <i class="fas fa-external-link-alt"></i></a>
-        <span class="filter-badge">Kliknij, aby filtrować filmy</span>
+        <p data-lang-pl="Ekstremalny horror, unikanie potworów, przetrwanie kolejnych pokoi i triki na przejście bez strat." data-lang-en="Extreme horror, dodging monsters, surviving rooms, and tips for flawless completion." data-lang-de="Extremer Horror, Ausweichen von Monstern und Überleben in Räumen." data-lang-es="Terror extremo, esquivar monstruos y sobrevivir a las habitaciones.">Ekstremalny horror, unikanie potworów, przetrwanie kolejnych pokoi i triki na przejście bez strat.</p>
+        <a href="https://www.roblox.com/games/6516141723/DOORS" target="_blank" class="game-link" onclick="event.stopPropagation()"><span data-lang-pl="Zagraj w Grę" data-lang-en="Play Game" data-lang-de="Spiel Spielen" data-lang-es="Jugar Juego">Zagraj w Grę</span> <i class="fas fa-external-link-alt"></i></a>
+        <span class="filter-badge" data-lang-pl="Kliknij, aby filtrować filmy" data-lang-en="Click to filter videos" data-lang-de="Klicken zum Filtern von Videos" data-lang-es="Haz clic para filtrar videos">Kliknij, aby filtrować filmy</span>
       </div>
 
-      <!-- Kategoria 2: Władca Pierścieni -->
+      <!-- Kategoria 2: Blox Strike -->
+      <div class="game-card" onclick="filterVideos('Blox Strike')">
+        <div class="game-icon"><i class="fas fa-crosshairs"></i></div>
+        <h3>Blox Strike</h3>
+        <p data-lang-pl="Dynamiczny shooter w Roblox, strzelaniny, rywalizacja zespołowa i niesamowite akcje." data-lang-en="Dynamic Roblox shooter, gunfights, team play, and intense actions." data-lang-de="Dynamischer Roblox-Shooter, Schießereien und Teamkämpfe." data-lang-es="Disparador dinámico en Roblox, tiroteos y juego en equipo.">Dynamiczny shooter w Roblox, strzelaniny, rywalizacja zespołowa i niesamowite akcje.</p>
+        <a href="https://www.roblox.com/games/114234929420007/BloxStrike" target="_blank" class="game-link" onclick="event.stopPropagation()"><span data-lang-pl="Zagraj w Grę" data-lang-en="Play Game" data-lang-de="Spiel Spielen" data-lang-es="Jugar Juego">Zagraj w Grę</span> <i class="fas fa-external-link-alt"></i></a>
+        <span class="filter-badge" data-lang-pl="Kliknij, aby filtrować filmy" data-lang-en="Click to filter videos" data-lang-de="Klicken zum Filtern von Videos" data-lang-es="Haz clic para filtrar videos">Kliknij, aby filtrować filmy</span>
+      </div>
+
+      <!-- Kategoria 3: Władca Pierścieni -->
       <div class="game-card" onclick="filterVideos('Władca Pierścieni')">
         <div class="game-icon"><i class="fas fa-shield-alt"></i></div>
-        <h3>Władca Pierścieni</h3>
-        <p>Epickie bitwy, kampanie i strategie w uniwersum Śródziemia. Walka o losy królestw!</p>
-        <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="game-link" onclick="event.stopPropagation()">Odwiedź kanał <i class="fas fa-external-link-alt"></i></a>
-        <span class="filter-badge">Kliknij, aby filtrować filmy</span>
+        <h3>Władca Pierścieni (BFME)</h3>
+        <p data-lang-pl="Epickie bitwy, kampanie i strategie w uniwersum Śródziemia. Walka o losy królestw!" data-lang-en="Epic battles, campaigns, and RTS strategies in Middle-earth. Fight for kingdoms!" data-lang-de="Epische Schlachten und Strategien in Mittelerde." data-lang-es="Batallas épicas y estrategias en la Tierra Media.">Epickie bitwy, kampanie i strategie w uniwersum Śródziemia. Walka o losy królestw!</p>
+        <a href="https://bfmeladder.com/" target="_blank" class="game-link" onclick="event.stopPropagation()"><span data-lang-pl="Pobierz Grę" data-lang-en="Download Game" data-lang-de="Spiel Herunterladen" data-lang-es="Descargar Juego">Pobierz Grę</span> <i class="fas fa-external-link-alt"></i></a>
+        <span class="filter-badge" data-lang-pl="Kliknij, aby filtrować filmy" data-lang-en="Click to filter videos" data-lang-de="Klicken zum Filtern von Videos" data-lang-es="Haz clic para filtrar videos">Kliknij, aby filtrować filmy</span>
       </div>
 
-      <!-- Kategoria 3: Inne Produkcje -->
+      <!-- Kategoria 4: Inne Produkcje -->
       <div class="game-card" onclick="filterVideos('Inne')">
         <div class="game-icon"><i class="fas fa-dice"></i></div>
-        <h3>Inne Produkcje</h3>
-        <p>Różnorodne gry, wyzwania, testy nowości i najlepsze momenty z rozgrywek.</p>
-        <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="game-link" onclick="event.stopPropagation()">Sprawdź <i class="fas fa-external-link-alt"></i></a>
-        <span class="filter-badge">Kliknij, aby filtrować filmy</span>
+        <h3 data-lang-pl="Inne Produkcje" data-lang-en="Other Games" data-lang-de="Andere Spiele" data-lang-es="Otros Juegos">Inne Produkcje</h3>
+        <p data-lang-pl="Różnorodne gry, wyzwania, testy nowości i najlepsze momenty z rozgrywek." data-lang-en="Various games, challenges, testing new releases, and best gaming highlights." data-lang-de="Verschiedene Spiele, Herausforderungen und Highlights." data-lang-es="Varios juegos, desafíos y destacados.">Różnorodne gry, wyzwania, testy nowości i najlepsze momenty z rozgrywek.</p>
+        <a href="https://www.youtube.com/@BestGamePlayer-777" target="_blank" class="game-link" onclick="event.stopPropagation()"><span data-lang-pl="Sprawdź" data-lang-en="Check Out" data-lang-de="Ansehen" data-lang-es="Ver">Sprawdź</span> <i class="fas fa-external-link-alt"></i></a>
+        <span class="filter-badge" data-lang-pl="Kliknij, aby filtrować filmy" data-lang-en="Click to filter videos" data-lang-de="Klicken zum Filtern von Videos" data-lang-es="Haz clic para filtrar videos">Kliknij, aby filtrować filmy</span>
       </div>
     </div>
     
     <div id="active-filter-banner" class="filter-banner" style="display:none;">
-      Aktywny filtr kategorii: <span id="current-filter-name">Wszystkie</span> 
-      <button onclick="resetFilter()" class="btn-reset-filter">Pokaż wszystkie</button>
+      <span data-lang-pl="Aktywny filtr kategorii:" data-lang-en="Active category filter:" data-lang-de="Aktiver Kategoriefilter:" data-lang-es="Filtro de categoría activo:">Aktywny filtr kategorii:</span> <span id="current-filter-name">Wszystkie</span> 
+      <button onclick="resetFilter()" class="btn-reset-filter" data-lang-pl="Pokaż wszystkie" data-lang-en="Show all" data-lang-de="Alle anzeigen" data-lang-es="Mostrar todo">Pokaż wszystkie</button>
     </div>
   </section>
 
-  <!-- SEKCJA MUZYKA Z FILMÓW -->
+  <!-- SEKCJA MUZYKA Z FILMÓW (Z LINKAMI YT) -->
   <section class="music-section" id="music">
-    <h2><i class="fas fa-music" style="color:#ff0055;"></i> Ścieżka Dźwiękowa / Muzyka z Filmów</h2>
-    <p class="section-subtitle">Kultowe kawałki, które podkręcają atmosferę w materiałach na kanale:</p>
+    <h2><i class="fas fa-music" style="color:#ff0055;"></i> <span data-lang-pl="Ścieżka Dźwiękowa / Muzyka z Filmów" data-lang-en="Soundtrack / Music from Videos" data-lang-de="Soundtrack / Musik aus Videos" data-lang-es="Banda Sonora / Música de Videos">Ścieżka Dźwiękowa / Muzyka z Filmów</span></h2>
+    <p class="section-subtitle" data-lang-pl="Kultowe kawałki, które podkręcają atmosferę w materiałach na kanale. Kliknij utwór, aby go posłuchać:" data-lang-en="Iconic tracks that power up the mood in our videos. Click a track to listen on YouTube:" data-lang-de="Kultige Tracks aus den Videos. Klicke zum Anhören:" data-lang-es="Pistas icónicas de nuestros videos. Haz clic para escuchar:">Kultowe kawałki, które podkręcają atmosferę w materiałach na kanale. Kliknij utwór, aby go posłuchać:</p>
     <div class="music-grid">
-      <div class="music-card">
-        <i class="fas fa-headphones-alt music-icon"></i>
-        <h3>Rave</h3>
-        <p>Energetyczny bit idealny do dynamicznych akcji i pościgów w grach.</p>
-      </div>
-      <div class="music-card">
-        <i class="fas fa-bolt music-icon"></i>
-        <h3>Why Not</h3>
-        <p>Kultowy utwór towarzyszący najlepszym momentom, montażom i wyzwaniom.</p>
-      </div>
-      <div class="music-card">
-        <i class="fas fa-fire-alt music-icon"></i>
-        <h3>GigaChad Theme</h3>
-        <p>Muzyka czystego sukcesu, epickich zagrywek i momentów triumfu.</p>
-      </div>
+      
+      <!-- Rave -->
+      <a href="https://www.youtube.com/watch?v=PTZgxW_3LIQ" target="_blank" class="music-card-link">
+        <div class="music-card">
+          <i class="fas fa-headphones-alt music-icon"></i>
+          <h3>Dxrk - Rave</h3>
+          <p data-lang-pl="Energetyczny bit idealny do dynamicznych akcji, montaży i pościgów w grach." data-lang-en="Energetic phonk beat ideal for fast-paced action and game chases." data-lang-de="Energetischer Phonk-Beat für schnelle Action." data-lang-es="Ritmo enérgico perfecto para acción rápida.">Energetyczny bit idealny do dynamicznych akcji, montaży i pościgów w grach.</p>
+          <span class="music-btn-listen"><i class="fab fa-youtube"></i> <span data-lang-pl="Słuchaj na YouTube" data-lang-en="Listen on YouTube" data-lang-de="Auf YouTube Hören" data-lang-es="Escuchar en YouTube">Słuchaj na YouTube</span></span>
+        </div>
+      </a>
+
+      <!-- Why Not -->
+      <a href="https://www.youtube.com/watch?v=Hh5jEQraXaw" target="_blank" class="music-card-link">
+        <div class="music-card">
+          <i class="fas fa-bolt music-icon"></i>
+          <h3>Ghostface Playa - Why Not</h3>
+          <p data-lang-pl="Kultowy utwór towarzyszący najlepszym momentom, akcjom i wyzwaniom." data-lang-en="Iconic track accompanying top gaming moments and epic challenges." data-lang-de="Kultiger Track für die besten Momente." data-lang-es="Pista icónica para los mejores momentos.">Kultowy utwór towarzyszący najlepszym momentom, akcjom i wyzwaniom.</p>
+          <span class="music-btn-listen"><i class="fab fa-youtube"></i> <span data-lang-pl="Słuchaj na YouTube" data-lang-en="Listen on YouTube" data-lang-de="Auf YouTube Hören" data-lang-es="Escuchar en YouTube">Słuchaj na YouTube</span></span>
+        </div>
+      </a>
+
+      <!-- GigaChad Theme -->
+      <a href="https://www.youtube.com/watch?v=OVh0bMNSFss" target="_blank" class="music-card-link">
+        <div class="music-card">
+          <i class="fas fa-fire-alt music-icon"></i>
+          <h3>GigaChad Theme (Phonk)</h3>
+          <p data-lang-pl="Muzyka czystego sukcesu, epickich zagrywek i momentów absolutnego triumfu." data-lang-en="Music of pure victory, epic plays, and absolute triumph." data-lang-de="Musik des reinen Erfolgs und des Sieges." data-lang-es="Música de pura victoria y triunfo.">Muzyka czystego sukcesu, epickich zagrywek i momentów absolutnego triumfu.</p>
+          <span class="music-btn-listen"><i class="fab fa-youtube"></i> <span data-lang-pl="Słuchaj na YouTube" data-lang-en="Listen on YouTube" data-lang-de="Auf YouTube Hören" data-lang-es="Escuchar en YouTube">Słuchaj na YouTube</span></span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -106,11 +142,11 @@
   <section class="discord-banner-section" id="discord">
     <div class="discord-card">
       <div class="discord-icon"><i class="fab fa-discord"></i></div>
-      <h2>OFICJALNY SERWER DISCORD</h2>
+      <h2 data-lang-pl="OFICJALNY SERWER DISCORD" data-lang-en="OFFICIAL DISCORD SERVER" data-lang-de="OFFIZIELLER DISCORD SERVER" data-lang-es="SERVIDOR OFICIAL DE DISCORD">OFICJALNY SERWER DISCORD</h2>
       <p class="discord-link-text">dsc.gg/bgplayers</p>
-      <p>Graj z nami, gadaj na głosowym i dowiaduj się o nowych filmach jako pierwszy!</p>
+      <p data-lang-pl="Graj z nami, gadaj na głosowym i dowiaduj się o nowych filmach jako pierwszy!" data-lang-en="Play with us, chat on voice, and be first to know about new uploads!" data-lang-de="Spiele mit uns, chatte im Voice und verpasse keine neuen Videos!" data-lang-es="¡Juega con nosotros, chatea por voz y enterate de nuevos videos!">Graj z nami, gadaj na głosowym i dowiaduj się o nowych filmach jako pierwszy!</p>
       <a href="https://dsc.gg/bgplayers" target="_blank" class="btn-discord-main">
-        WEJDŹ NA SERWER <i class="fas fa-external-link-alt"></i>
+        <span data-lang-pl="WEJDŹ NA SERWER" data-lang-en="JOIN SERVER" data-lang-de="SERVER BETRETEN" data-lang-es="ENTRAR AL SERVIDOR">WEJDŹ NA SERWER</span> <i class="fas fa-external-link-alt"></i>
       </a>
     </div>
   </section>
@@ -120,55 +156,55 @@
     <div class="stat-card">
       <i class="fas fa-users stat-icon"></i>
       <h3 id="sub-count">--</h3>
-      <p>Subskrybentów</p>
+      <p data-lang-pl="Subskrybentów" data-lang-en="Subscribers" data-lang-de="Abonnenten" data-lang-es="Suscriptores">Subskrybentów</p>
     </div>
     <div class="stat-card">
       <i class="fas fa-eye stat-icon"></i>
       <h3 id="view-count">--</h3>
-      <p>Wyświetleń Łącznie</p>
+      <p data-lang-pl="Wyświetleń Łącznie" data-lang-en="Total Views" data-lang-de="Gesamtaufrufe" data-lang-es="Vistas Totales">Wyświetleń Łącznie</p>
     </div>
     <div class="stat-card">
       <i class="fas fa-video stat-icon"></i>
       <h3 id="video-count">--</h3>
-      <p>Opublikowanych Filmów</p>
+      <p data-lang-pl="Opublikowanych Filmów" data-lang-en="Uploaded Videos" data-lang-de="Hochgeladene Videos" data-lang-es="Videos Subidos">Opublikowanych Filmów</p>
     </div>
     <div class="stat-card timer-card">
-      <i class="fas fa-sync-alt stat-icon"></i>
+      <i class="fas fa-sync-alt stat-icon fa-spin"></i>
       <h3 id="timer-count">5</h3>
-      <p>Odświeżenie za (s)</p>
+      <p data-lang-pl="Odświeżenie za (s)" data-lang-en="Refresh in (s)" data-lang-de="Aktualisierung in (s)" data-lang-es="Actualizando en (s)">Odświeżenie za (s)</p>
     </div>
   </section>
 
   <!-- Najpopularniejsze Filmy -->
   <section class="videos-section" id="popular">
-    <h2><i class="fas fa-fire" style="color:#ff0055;"></i> Najpopularniejsze Hity</h2>
+    <h2><i class="fas fa-fire" style="color:#ff0055;"></i> <span data-lang-pl="Najpopularniejsze Hity" data-lang-en="Most Popular Hits" data-lang-de="Beliebteste Hits" data-lang-es="Éxitos Más Populares">Najpopularniejsze Hity</span></h2>
     <div class="video-grid" id="popular-video-grid">
-      <p class="loading-text">Ładowanie hitów z kanału...</p>
+      <p class="loading-text" data-lang-pl="Ładowanie hitów z kanału..." data-lang-en="Loading channel hits..." data-lang-de="Lade Kanal-Hits..." data-lang-es="Cargando éxitos del canal...">Ładowanie hitów z kanału...</p>
     </div>
   </section>
 
   <!-- Wszystkie Filmy (Pod Kategoriami) -->
   <section class="videos-section" id="videos">
-    <h2><i class="fas fa-film" style="color:#00f0ff;"></i> Filmy z Kanału</h2>
+    <h2><i class="fas fa-film" style="color:#00f0ff;"></i> <span data-lang-pl="Filmy z Kanału" data-lang-en="Videos from Channel" data-lang-de="Videos vom Kanal" data-lang-es="Videos del Canal">Filmy z Kanału</span></h2>
     <div class="video-grid" id="video-grid">
-      <p class="loading-text">Ładowanie filmów...</p>
+      <p class="loading-text" data-lang-pl="Ładowanie filmów..." data-lang-en="Loading videos..." data-lang-de="Lade Videos..." data-lang-es="Cargando videos...">Ładowanie filmów...</p>
     </div>
     <div class="load-more-container">
-      <button id="load-more-btn" class="btn-load-more">Rozwiń więcej filmów (W dół) <i class="fas fa-chevron-down"></i></button>
+      <button id="load-more-btn" class="btn-load-more"><span data-lang-pl="Rozwiń więcej filmów (W dół)" data-lang-en="Load more videos (Down)" data-lang-de="Mehr Videos laden (Unten)" data-lang-es="Cargar más videos (Abajo)">Rozwiń więcej filmów (W dół)</span> <i class="fas fa-chevron-down"></i></button>
     </div>
   </section>
 
   <!-- Sekcja O Mnie -->
   <section class="about-section">
     <div class="about-card">
-      <h2>O BG Player</h2>
-      <p>Cześć! Jestem twórcą kanału <strong>BG Player</strong> (@BestGamePlayer-777). Jeśli uwielbiasz napięcie w Roblox Doors, strategię i klimat Władcy Pierścieni oraz świetną atmosferę – to miejsce jest dla Ciebie. Zostaw subskrypcję i wbijaj na Discorda!</p>
+      <h2 data-lang-pl="O BG Player" data-lang-en="About BG Player" data-lang-de="Über BG Player" data-lang-es="Sobre BG Player">O BG Player</h2>
+      <p data-lang-pl="Cześć! Jestem twórcą kanału BG Player (@BestGamePlayer-777). Jeśli uwielbiasz napięcie w Roblox Doors, akcję w Blox Strike, strategię i klimat Władcy Pierścieni oraz świetną atmosferę – to miejsce jest dla Ciebie. Zostaw subskrypcję i wbijaj na Discorda!" data-lang-en="Hi! I am the creator of BG Player (@BestGamePlayer-777). If you love Roblox Doors suspense, Blox Strike action, Lord of the Rings strategy, and great vibes – this is your place. Subscribe and join Discord!" data-lang-de="Hallo! Ich bin der Ersteller von BG Player (@BestGamePlayer-777). Wenn du Roblox Doors, Blox Strike und Der Herr der Ringe magst, schließ dich uns an!" data-lang-es="¡Hola! Soy el creador de BG Player (@BestGamePlayer-777). Si te encantan Roblox Doors, Blox Strike y El Señor de los Anillos, ¡únete a nosotros!">Cześć! Jestem twórcą kanału <strong>BG Player</strong> (@BestGamePlayer-777). Jeśli uwielbiasz napięcie w Roblox Doors, akcję w Blox Strike, strategię i klimat Władcy Pierścieni oraz świetną atmosferę – to miejsce jest dla Ciebie. Zostaw subskrypcję i wbijaj na Discorda!</p>
     </div>
   </section>
 
   <!-- Stopka -->
   <footer>
-    <p>&copy; 2026 BG Player (@BestGamePlayer-777). Wszystkie prawa zastrzeżone.</p>
+    <p>&copy; 2026 BG Player (@BestGamePlayer-777). <span data-lang-pl="Wszystkie prawa zastrzeżone." data-lang-en="All rights reserved." data-lang-de="Alle Rechte vorbehalten." data-lang-es="Todos los derechos reservados.">Wszystkie prawa zastrzeżone.</span></p>
   </footer>
 
   <script>
@@ -180,7 +216,15 @@
     let currentFilter = 'All';
     let countdown = 5;
 
-    // Pobierz statystyki kanału
+    // Funkcja zmiany języka
+    function changeLanguage(lang) {
+      const elements = document.querySelectorAll('[data-lang-' + lang + ']');
+      elements.forEach(el => {
+        el.innerText = el.getAttribute('data-lang-' + lang);
+      });
+    }
+
+    // Pobieranie statystyk kanału
     async function fetchChannelStats() {
       try {
         const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
@@ -198,7 +242,7 @@
       }
     }
 
-    // Timer odświeżania co 5 sekund
+    // Timer odświeżania od 5 do 0 sekund
     function startAutoRefreshTimer() {
       setInterval(() => {
         countdown--;
@@ -210,7 +254,7 @@
       }, 1000);
     }
 
-    // Pobierz najpopularniejsze filmy
+    // Najpopularniejsze filmy
     async function fetchPopularVideos() {
       try {
         const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=3&type=video`;
@@ -253,11 +297,11 @@
           });
         }
       } catch (err) {
-        console.error('Błąd pobierania hitorycznych filmów:', err);
+        console.error('Błąd pobierania popularnych filmów:', err);
       }
     }
 
-    // Pobierz wszystkie filmy do archiwum z możliwością filtrowania i rozwijania
+    // Pobieranie filmów do sekcji według kategorii
     async function fetchAllVideos() {
       try {
         const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=30&type=video`;
@@ -278,7 +322,7 @@
       }
     }
 
-    // Renderowanie filmów na podstawie filtra i limitu
+    // Wyświetlanie filmów z filtrowaniem
     function renderVideos() {
       const grid = document.getElementById('video-grid');
       grid.innerHTML = '';
@@ -288,8 +332,9 @@
         filtered = allVideosData.filter(video => {
           const title = video.snippet.title.toLowerCase();
           if (currentFilter === 'Roblox Doors') return title.includes('roblox') || title.includes('doors');
-          if (currentFilter === 'Władca Pierścieni') return title.includes('władca') || title.includes('lord') || title.includes('ring') || title.includes('pierścieni');
-          if (currentFilter === 'Inne') return !title.includes('roblox') && !title.includes('doors') && !title.includes('władca') && !title.includes('lord');
+          if (currentFilter === 'Blox Strike') return title.includes('blox') || title.includes('strike');
+          if (currentFilter === 'Władca Pierścieni') return title.includes('władca') || title.includes('lord') || title.includes('ring') || title.includes('pierścieni') || title.includes('bfme');
+          if (currentFilter === 'Inne') return !title.includes('roblox') && !title.includes('doors') && !title.includes('blox') && !title.includes('władca') && !title.includes('lord');
           return true;
         });
       }
@@ -337,7 +382,6 @@
       }
     }
 
-    // Funkcje filtrowania
     function filterVideos(category) {
       currentFilter = category;
       displayedCount = 6;
@@ -359,7 +403,6 @@
       renderVideos();
     });
 
-    // Inicjalizacja
     fetchChannelStats();
     startAutoRefreshTimer();
     fetchPopularVideos();
