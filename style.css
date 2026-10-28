@@ -37,16 +37,105 @@ header {
   text-shadow: 0 0 10px #ff0055;
 }
 
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 nav a {
   color: #fff;
   text-decoration: none;
-  margin-left: 1.5rem;
+  margin-left: 1rem;
   font-weight: 600;
   transition: color 0.3s;
+  font-size: 0.95rem;
 }
 
 nav a:hover {
   color: #00f0ff;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Przycisk Mute / Unmute Muzyki */
+.btn-audio-toggle {
+  background: #161b2e;
+  color: #ff0055;
+  border: 1px solid #ff0055;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+
+.btn-audio-toggle:hover {
+  background: #ff0055;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Ustawienia Języka */
+.settings-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-settings {
+  background: #161b2e;
+  color: #00f0ff;
+  border: 1px solid #00f0ff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-settings:hover {
+  background: #00f0ff;
+  color: #0d0f17;
+}
+
+.settings-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #161b2e;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.6);
+  border: 1px solid #00f0ff;
+  border-radius: 6px;
+  z-index: 101;
+  overflow: hidden;
+}
+
+.settings-menu a {
+  color: #fff;
+  padding: 0.8rem 1rem;
+  text-decoration: none;
+  display: block;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.settings-menu a:hover {
+  background-color: #00f0ff;
+  color: #0d0f17;
+}
+
+.settings-dropdown:hover .settings-menu {
+  display: block;
 }
 
 .hero {
@@ -108,7 +197,7 @@ nav a:hover {
   box-shadow: 0 0 25px rgba(88, 101, 242, 0.9);
 }
 
-/* SEKCJA GRY I KATEGORIE */
+/* GRY I KATEGORIE */
 .games-section {
   max-width: 1200px;
   margin: 4rem auto;
@@ -131,7 +220,7 @@ nav a:hover {
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
 }
 
@@ -139,7 +228,7 @@ nav a:hover {
   background: #161b2e;
   border: 1px solid #2d3748;
   border-radius: 12px;
-  padding: 2.5rem 2rem;
+  padding: 2rem 1.5rem;
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -213,7 +302,85 @@ nav a:hover {
   cursor: pointer;
 }
 
-/* SEKCJA MUZYKI */
+/* SEKCJA: ZAPROPONUJ POMYSŁ NA FILM */
+.idea-section {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.idea-card {
+  background: linear-gradient(135deg, #161b2e 0%, #1f2842 100%);
+  border: 2px solid #00f0ff;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.idea-icon {
+  font-size: 3rem;
+  color: #00f0ff;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
+}
+
+.idea-card h2 {
+  font-size: 2.2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.idea-card p {
+  color: #a0aec0;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.idea-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.idea-input, .idea-textarea {
+  background: #0d0f17;
+  border: 1px solid #2d3748;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.idea-input:focus, .idea-textarea:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.btn-idea-submit {
+  background: #00f0ff;
+  color: #0d0f17;
+  border: none;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+}
+
+.btn-idea-submit:hover {
+  background: #fff;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+/* MUZYKA */
 .music-section {
   max-width: 1200px;
   margin: 4rem auto;
@@ -234,6 +401,12 @@ nav a:hover {
   gap: 2rem;
 }
 
+.music-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .music-card {
   background: #161b2e;
   border: 1px solid rgba(255, 0, 85, 0.3);
@@ -241,12 +414,16 @@ nav a:hover {
   padding: 2.5rem 2rem;
   text-align: center;
   transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .music-card:hover {
   transform: translateY(-5px);
   border-color: #ff0055;
-  box-shadow: 0 0 25px rgba(255, 0, 85, 0.3);
+  box-shadow: 0 0 25px rgba(255, 0, 85, 0.4);
 }
 
 .music-icon {
@@ -257,7 +434,7 @@ nav a:hover {
 }
 
 .music-card h3 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: #fff;
   margin-bottom: 0.8rem;
 }
@@ -265,9 +442,19 @@ nav a:hover {
 .music-card p {
   color: #a0aec0;
   font-size: 0.95rem;
+  margin-bottom: 1.5rem;
 }
 
-/* SEKCJA DISCORD BANNER */
+.music-btn-listen {
+  display: inline-block;
+  color: #ff0055;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-top: 1px solid #2d3748;
+  padding-top: 1rem;
+}
+
+/* DISCORD BANNER */
 .discord-banner-section {
   max-width: 1000px;
   margin: 3rem auto;
@@ -518,7 +705,7 @@ nav a:hover {
   font-size: 1.2rem;
 }
 
-/* SEKCJA O MNIE */
+/* O MNIE */
 .about-section {
   max-width: 900px;
   margin: 4rem auto;
