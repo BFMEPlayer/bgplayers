@@ -239,10 +239,10 @@
     let allVideosData = [];
     let displayedCount = 6;
     let currentFilter = 'All';
-    let countdown = 5;
+    let countdown = 60; // Zmienione na 60 sekund (1 minuta)
     let isAudioMuted = true;
 
-    // Funkcja wysyłająca wiadomość bezpośrednio na Discord za pomocą Webhooka
+    // Wysyłanie pomysłu na film na Discorda
     async function sendIdeaToDiscord(event) {
       event.preventDefault();
       
@@ -260,7 +260,7 @@
         avatar_url: "https://i.imgur.com/4M34hi2.png",
         embeds: [{
           title: "💡 Nowy pomysł na film ze strony!",
-          color: 61440, // Kolor seledynowy/neon
+          color: 61440,
           fields: [
             { name: "👤 Autor:", value: nick, inline: true },
             { name: "📝 Pomysł:", value: ideaText, inline: false }
@@ -281,11 +281,10 @@
           document.getElementById('idea-nick').value = '';
           document.getElementById('idea-text').value = '';
         } else {
-          alert('Wystąpił błąd podczas wysyłania. Spróbuj ponownie za chwilę.');
+          alert('Wystąpił błąd podczas wysyłania.');
         }
       } catch (err) {
-        console.error('Błąd wysyłania Webhooka:', err);
-        alert('Nie udało się połączyć z Discordem.');
+        console.error('Błąd Webhooka:', err);
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<span>Wyślij Pomysł</span> <i class="fas fa-paper-plane"></i>';
@@ -315,6 +314,7 @@
       });
     }
 
+    // Pobieranie statystyk kanału
     async function fetchChannelStats() {
       try {
         const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
@@ -332,6 +332,7 @@
       }
     }
 
+    // Pobieranie popularnych hitów (raz przy starcie)
     async function fetchPopularVideos() {
       try {
         const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=3&type=video`;
@@ -378,6 +379,7 @@
       }
     }
 
+    // Pobieranie filmów do głównej siatki (raz przy starcie)
     async function fetchAllVideos() {
       try {
         const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=30&type=video`;
@@ -398,18 +400,13 @@
       }
     }
 
-    function refreshAllData() {
-      fetchChannelStats();
-      fetchPopularVideos();
-      fetchAllVideos();
-    }
-
+    // Timer odświeżający statystyki co 1 minutę (60 sekund)
     function startAutoRefreshTimer() {
       setInterval(() => {
         countdown--;
         if (countdown <= 0) {
-          countdown = 5;
-          refreshAllData();
+          countdown = 60; // Reset licznika do 60 sekund
+          fetchChannelStats(); // Odświeża statystyki kanału
         }
         document.getElementById('timer-count').innerText = countdown;
       }, 1000);
@@ -423,13 +420,13 @@
       if (currentFilter !== 'All') {
         filtered = allVideosData.filter(video => {
           const title = video.snippet.title.toLowerCase();
-          if (currentFilter === 'Roblox Doors') return title.includes('roblox') || title.includes('doors') || title.includes('drzwi');
-          if (currentFilter === 'Blox Strike') return title.includes('blox') || title.includes('strike') || title.includes('strzel');
-          if (currentFilter === 'Władca Pierścieni') return title.includes('władca') || title.includes('lord') || title.includes('ring') || title.includes('pierścieni') || title.includes('bfme') || title.includes('middle');
+          if (currentFilter === 'Roblox Doors') return title.includes('roblox') || title.includes('doors');
+          if (currentFilter === 'Blox Strike') return title.includes('blox') || title.includes('strike');
+          if (currentFilter === 'Władca Pierścieni') return title.includes('władca') || title.includes('lord') || title.includes('ring') || title.includes('pierścieni') || title.includes('bfme');
+          if (currentFilter === 'Inne') return !title.includes('roblox') && !title.includes('doors') && !title.includes('blox') && !title.includes('władca') && !title.includes('lord');
           return true;
         });
-        
-        // Jeśli filtr nie znalazł filmów po słowach kluczowych, pokaż ogólne filmy, żeby sekcja nie była pusta
+
         if (filtered.length === 0) {
           filtered = allVideosData;
         }
@@ -438,7 +435,7 @@
       const toDisplay = filtered.slice(0, displayedCount);
 
       if (toDisplay.length === 0) {
-        grid.innerHTML = `<p class="loading-text">Brak filmów na kanale lub trwa ładowanie...</p>`;
+        grid.innerHTML = `<p class="loading-text">Ładowanie filmów z kanału...</p>`;
         document.getElementById('load-more-btn').style.display = 'none';
         return;
       }
@@ -499,7 +496,10 @@
       renderVideos();
     });
 
-    refreshAllData();
+    // Inicjalizacja przy starcie
+    fetchChannelStats();
+    fetchPopularVideos();
+    fetchAllVideos();
     startAutoRefreshTimer();
   </script>
 </body>
