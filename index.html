@@ -109,14 +109,13 @@
     </div>
   </section>
 
-  <!-- SEKCJA: ZAPROPONUJ POMYSŁ NA FILM (DISCORD WEBHOOK INTEGRACJA) -->
+  <!-- SEKCJA: ZAPROPONUJ POMYSŁ NA FILM (DISCORD WEBHOOK) -->
   <section class="idea-section" id="idea">
     <div class="idea-card">
       <div class="idea-icon"><i class="fas fa-lightbulb"></i></div>
       <h2 data-lang-pl="Zaproponuj Pomysł na Film!" data-lang-en="Suggest a Video Idea!" data-lang-de="Video-Idee vorschlagen!" data-lang-es="¡Sugiere una idea de video!" data-lang-uk="Запропонуйте ідею для відео!" data-lang-cs="Navrhněte nápad na video!">Zaproponuj Pomysł na Film!</h2>
       <p data-lang-pl="Masz ciekawy pomysł na wyzwanie, grę lub odcinek? Wpisz go poniżej, a trafi on bezpośrednio na nasz kanał Discord!" data-lang-en="Have a cool idea for a challenge or game? Type it below and it will be sent directly to our Discord!" data-lang-de="Hast du eine Idee? Schreib sie unten rein!" data-lang-es="¡Escribe tu idea abajo y envíamela!" data-lang-uk="Маєте ідею для відео? Напишіть її нижче!" data-lang-cs="Máte skvělý nápad? Napište ho níže!">Masz ciekawy pomysł na wyzwanie, grę lub odcinek? Wpisz go poniżej, a trafi on bezpośrednio na nasz kanał Discord!</p>
       
-      <!-- Formularz wysyłający na Discord Webhook -->
       <form class="idea-form" onsubmit="sendIdeaToDiscord(event)">
         <input type="text" id="idea-nick" placeholder="Twój Nick / Nazwa (opcjonalnie)" class="idea-input">
         <textarea id="idea-text" placeholder="Wpisz swój pomysł na film tutaj..." rows="4" required class="idea-textarea"></textarea>
@@ -175,7 +174,7 @@
     </div>
   </section>
 
-  <!-- Licznik Statystyk z timerem 5 sekund -->
+  <!-- Licznik Statystyk z timerem 60 sekund -->
   <section class="stats-container" id="stats">
     <div class="stat-card">
       <i class="fas fa-users stat-icon"></i>
@@ -194,7 +193,7 @@
     </div>
     <div class="stat-card timer-card">
       <i class="fas fa-sync-alt stat-icon fa-spin"></i>
-      <h3 id="timer-count">5</h3>
+      <h3 id="timer-count">60</h3>
       <p data-lang-pl="Odświeżenie za (s)" data-lang-en="Refresh in (s)" data-lang-de="Aktualisierung in (s)" data-lang-es="Actualizando en (s)" data-lang-uk="Оновлення через (с)" data-lang-cs="Obnovení za (s)">Odświeżenie za (s)</p>
     </div>
   </section>
@@ -239,10 +238,9 @@
     let allVideosData = [];
     let displayedCount = 6;
     let currentFilter = 'All';
-    let countdown = 60; // Zmienione na 60 sekund (1 minuta)
+    let countdown = 60;
     let isAudioMuted = true;
 
-    // Wysyłanie pomysłu na film na Discorda
     async function sendIdeaToDiscord(event) {
       event.preventDefault();
       
@@ -314,7 +312,6 @@
       });
     }
 
-    // Pobieranie statystyk kanału
     async function fetchChannelStats() {
       try {
         const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
@@ -332,81 +329,76 @@
       }
     }
 
-    // Pobieranie popularnych hitów (raz przy starcie)
-    async function fetchPopularVideos() {
-      try {
-        const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=3&type=video`;
-        const resSearch = await fetch(searchUrl);
-        const dataSearch = await resSearch.json();
-
-        const grid = document.getElementById('popular-video-grid');
-
-        if (dataSearch.items && dataSearch.items.length > 0) {
-          const videoIds = dataSearch.items.map(item => item.id.videoId).join(',');
-          const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
-          const resDetails = await fetch(detailsUrl);
-          const dataDetails = await resDetails.json();
-
-          grid.innerHTML = '';
-          dataDetails.items.forEach(video => {
-            const title = video.snippet.title;
-            const thumb = video.snippet.thumbnails.high ? video.snippet.thumbnails.high.url : video.snippet.thumbnails.medium.url;
-            const views = Number(video.statistics.viewCount || 0).toLocaleString('pl-PL');
-            const likes = Number(video.statistics.likeCount || 0).toLocaleString('pl-PL');
-
-            const card = document.createElement('div');
-            card.className = 'video-card popular-card';
-            card.innerHTML = `
-              <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" class="video-link">
-                <div class="thumb-wrapper">
-                  <img src="${thumb}" alt="${title}">
-                  <span class="badge-popular"><i class="fas fa-fire"></i> TOP</span>
-                </div>
-                <div class="video-info">
-                  <div class="video-title">${title}</div>
-                  <div class="video-stats-row">
-                    <span><i class="fas fa-eye"></i> ${views}</span>
-                    <span><i class="fas fa-thumbs-up"></i> ${likes}</span>
-                  </div>
-                </div>
-              </a>
-            `;
-            grid.appendChild(card);
-          });
-        }
-      } catch (err) {
-        console.error('Błąd pobierania popularnych filmów:', err);
-      }
-    }
-
-    // Pobieranie filmów do głównej siatki (raz przy starcie)
+    // Bezpieczne pobieranie filmów z playlisty (omija limit wyszukiwań 'search')
     async function fetchAllVideos() {
       try {
-        const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=30&type=video`;
-        const resSearch = await fetch(searchUrl);
-        const dataSearch = await resSearch.json();
+        const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`;
+        const resChan = await fetch(channelUrl);
+        const dataChan = await resChan.json();
 
-        if (dataSearch.items && dataSearch.items.length > 0) {
-          const videoIds = dataSearch.items.map(item => item.id.videoId).join(',');
-          const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
-          const resDetails = await fetch(detailsUrl);
-          const dataDetails = await resDetails.json();
+        if (dataChan.items && dataChan.items.length > 0) {
+          const uploadsPlaylistId = dataChan.items[0].contentDetails.relatedPlaylists.uploads;
 
-          allVideosData = dataDetails.items;
-          renderVideos();
+          const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=30&key=${API_KEY}`;
+          const resList = await fetch(playlistUrl);
+          const dataList = await resList.json();
+
+          if (dataList.items && dataList.items.length > 0) {
+            const videoIds = dataList.items.map(item => item.snippet.resourceId.videoId).join(',');
+
+            const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics,snippet`;
+            const resDetails = await fetch(detailsUrl);
+            const dataDetails = await resDetails.json();
+
+            allVideosData = dataDetails.items;
+            renderPopularVideosLocally(dataDetails.items);
+            renderVideos();
+          }
         }
       } catch (err) {
-        console.error('Błąd pobierania filmów:', err);
+        console.error('Błąd pobierania filmów z playlisty:', err);
       }
     }
 
-    // Timer odświeżający statystyki co 1 minutę (60 sekund)
+    function renderPopularVideosLocally(items) {
+      const grid = document.getElementById('popular-video-grid');
+      const sorted = [...items].sort((a, b) => Number(b.statistics.viewCount || 0) - Number(a.statistics.viewCount || 0));
+      const topHits = sorted.slice(0, 3);
+
+      grid.innerHTML = '';
+      topHits.forEach(video => {
+        const title = video.snippet.title;
+        const thumb = video.snippet.thumbnails.high ? video.snippet.thumbnails.high.url : video.snippet.thumbnails.medium.url;
+        const views = Number(video.statistics.viewCount || 0).toLocaleString('pl-PL');
+        const likes = Number(video.statistics.likeCount || 0).toLocaleString('pl-PL');
+
+        const card = document.createElement('div');
+        card.className = 'video-card popular-card';
+        card.innerHTML = `
+          <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" class="video-link">
+            <div class="thumb-wrapper">
+              <img src="${thumb}" alt="${title}">
+              <span class="badge-popular"><i class="fas fa-fire"></i> TOP</span>
+            </div>
+            <div class="video-info">
+              <div class="video-title">${title}</div>
+              <div class="video-stats-row">
+                <span><i class="fas fa-eye"></i> ${views}</span>
+                <span><i class="fas fa-thumbs-up"></i> ${likes}</span>
+              </div>
+            </div>
+          </a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
     function startAutoRefreshTimer() {
       setInterval(() => {
         countdown--;
         if (countdown <= 0) {
-          countdown = 60; // Reset licznika do 60 sekund
-          fetchChannelStats(); // Odświeża statystyki kanału
+          countdown = 60;
+          fetchChannelStats();
         }
         document.getElementById('timer-count').innerText = countdown;
       }, 1000);
@@ -496,9 +488,7 @@
       renderVideos();
     });
 
-    // Inicjalizacja przy starcie
     fetchChannelStats();
-    fetchPopularVideos();
     fetchAllVideos();
     startAutoRefreshTimer();
   </script>
