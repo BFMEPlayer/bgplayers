@@ -423,18 +423,22 @@
       if (currentFilter !== 'All') {
         filtered = allVideosData.filter(video => {
           const title = video.snippet.title.toLowerCase();
-          if (currentFilter === 'Roblox Doors') return title.includes('roblox') || title.includes('doors');
-          if (currentFilter === 'Blox Strike') return title.includes('blox') || title.includes('strike');
-          if (currentFilter === 'Władca Pierścieni') return title.includes('władca') || title.includes('lord') || title.includes('ring') || title.includes('pierścieni') || title.includes('bfme');
-          if (currentFilter === 'Inne') return !title.includes('roblox') && !title.includes('doors') && !title.includes('blox') && !title.includes('władca') && !title.includes('lord');
+          if (currentFilter === 'Roblox Doors') return title.includes('roblox') || title.includes('doors') || title.includes('drzwi');
+          if (currentFilter === 'Blox Strike') return title.includes('blox') || title.includes('strike') || title.includes('strzel');
+          if (currentFilter === 'Władca Pierścieni') return title.includes('władca') || title.includes('lord') || title.includes('ring') || title.includes('pierścieni') || title.includes('bfme') || title.includes('middle');
           return true;
         });
+        
+        // Jeśli filtr nie znalazł filmów po słowach kluczowych, pokaż ogólne filmy, żeby sekcja nie była pusta
+        if (filtered.length === 0) {
+          filtered = allVideosData;
+        }
       }
 
       const toDisplay = filtered.slice(0, displayedCount);
 
       if (toDisplay.length === 0) {
-        grid.innerHTML = `<p class="loading-text">Brak filmów w tej kategorii.</p>`;
+        grid.innerHTML = `<p class="loading-text">Brak filmów na kanale lub trwa ładowanie...</p>`;
         document.getElementById('load-more-btn').style.display = 'none';
         return;
       }
